@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dhu.mapper.OrderMapper">
+    <!--<insert id="addHouse" parameterType="House" >-->
+        <!--insert into house (housename,houseremark,houseprice,housearea,housetype,housefloor,houseorientation,housetraffic,houselocation,houseownerid) values (#{housename},#{houseremark},#{houseprice},#{housearea},#{housetype},#{housefloor},#{houseorientation},#{housetraffic},#{houselocation},#{houseownerid})-->
+    <!--</insert>-->
+
+    <!--<select id="listOrderByBuyer" resultType="Order">-->
+        <!--select * from order where buyerid={buyerid}-->
+    <!--</select>-->
+
+    <select id="listOrder"    resultType="Order">
+        select * from order_
+    </select>
+
+    <select id="listOrderU" parameterType="Order"   resultType="Order">
+        select  *  from order_
+        <where>
+            <if test="buyerid!=null">
+                and buyerid=#{buyerid}
+            </if>
+        </where>
+    </select>
+
+    <insert id="addOrder" parameterType="Order">
+       insert into order_ (buyerid,houseid) values (#{buyerid},#{houseid})
+    </insert>
+</mapper>

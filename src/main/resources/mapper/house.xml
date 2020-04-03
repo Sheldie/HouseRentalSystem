@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dhu.mapper.HouseMapper">
+    <insert id="addHouse" parameterType="House" >
+        insert into house (housename,houseremark,houseprice,housearea,housetype,housefloor,houseorientation,housetraffic,houselocation,houseownerid,houseimg) values (#{housename},#{houseremark},#{houseprice},#{housearea},#{housetype},#{housefloor},#{houseorientation},#{housetraffic},#{houselocation},#{houseownerid},#{houseimg})
+    </insert>
+
+
+
+    <update id="editHouse" parameterType="House" >
+        update house set housestate='rented' where houseid=#{houseid}
+    </update>
+    <select id="detailHouse" parameterType="House"   resultType="House">
+        select * from house where housestate='available'
+
+            <if test="houseid!=null">
+                and houseid=#{houseid}
+            </if>
+    </select>
+
+    <select id="listHouse" parameterType="House"   resultType="House">
+        select * from house where housestate='available'
+        <if test="houselocation!=null">
+            and houselocation like  '%${houselocation}%'
+        </if>
+        <if test="houseprice!=null ">
+            and houseprice=#{houseprice}
+        </if>
+        <if test="housearea!= null  ">
+            and housearea=#{housearea}
+        </if>
+        order by housecreatetime desc
+
+    </select>
+
+    <select id="findSH" resultType="int">
+        select COUNT(*) from house where houselocation='上海'
+    </select>
+
+</mapper>
